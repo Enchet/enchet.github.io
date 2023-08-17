@@ -106,7 +106,7 @@ function gameEndRender(){
         case finalRank > questLine.length / 3 * 2:
             finalNaming = "You are the type of guy to think you're an alpha male.<br>That's a bad thing."
             break;
-        case finalRank > questLine.length / 3:
+        case finalRank > questLine.length / 3 && finalRank < questLine.length / 3 * 2:
             finalNaming = "You don't have any strong opinions.<br>Maybe you 'borrow' those from influencers, who knows"
             break;
         case finalRank < questLine.length / 3:
