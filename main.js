@@ -9,17 +9,17 @@ let finalRank = 0;
 let i = 0;
 
 if (localStorage.getItem("language") == undefined){
-    localStorage.setItem("language") = "english";
+    localStorage.setItem("language", "english");
 }
 
 LANGUAGECHANGEBTN.addEventListener("click", function(){
     switch(localStorage.getItem("language")){
         case "english":
-            localStorage.setItem("language") = "russian";
+            localStorage.setItem("language", "russian");
             location.reload();
             break;
         case "russian":
-            localStorage.setItem("language") = "english";
+            localStorage.setItem("language", "english");
             location.reload();
             break;
     }
