@@ -113,7 +113,7 @@ questLine = [
 
 questLineRus = [
     { 
-        name: "Каково ваше нахождение на горизонтальном политическом спектруме",
+        name: "Каково ваше нахождение на <br>горизонтальном политическом спектруме",
         options: [
             "Консерватизм",
             "Центризм",
@@ -127,7 +127,7 @@ questLineRus = [
     }, 
 
     { 
-        name: "Что бы вы делали, если бы вас жоско делали в видео игре",
+        name: "Что бы вы делали, <br>если бы вас жоско делали в видео игре",
         options: [
             "Ливнуть",
             "Игнорировать",
@@ -155,11 +155,11 @@ questLineRus = [
     }, 
 
     { 
-        name: "Мед. маски обязательны для предотвращения распространения covid-19",
+        name: "Мед. маски обязательны для <br>предотвращения распространения covid-19",
         options: [
-            "Yes",
-            "No",
-            "I live under a rock sorry"
+            "Да",
+            "Нет",
+            "Кто такой ковид-19"
         ],
         ranks: [
             -1,
@@ -242,14 +242,14 @@ function gameEndRenderRus(){
     let finalNaming;
 
     switch(true){
-        case finalRank >= questLine.length / 3 * 2:
+        case finalRank >= questLine.length / 3:
             finalNaming = "Вы думаете, что вы - смегма.<br>Это плохо"
             break;
-        case finalRank >= questLine.length / 3 && finalRank <= questLine.length / 3 * 2:
+        case finalRank >= 0 - questLine.length / 3 && finalRank <= questLine.length / 3:
             finalNaming = "У вас нет своего мнения.<br>Мб ты 'взаимствовывуешь' их у ютуберов"
             break;
-        case finalRank <= questLine.length / 3:
-             finalNaming = "Ты диванный воин Твиттера<br>Как настоящий воин, ты годишься как бесплатная еда"
+        case finalRank <= 0 - questLine.length / 3:
+             finalNaming = "Вы - диванный воин Твиттера<br>На настоящем поле боя, вы годитесь как бесплатная еда"
              break;
 
     }
