@@ -3,8 +3,27 @@ const BUT1 = document.getElementById("opt1");
 const BUT2 = document.getElementById("opt2");
 const BUT3 = document.getElementById("opt3");
 
+const LANGUAGECHANGEBTN = document.getElementById("languageChangeBtn");
+
 let finalRank = 0;
 let i = 0;
+
+if (localStorage.getItem("language") == undefined){
+    localStorage.setItem("language") = "english";
+}
+
+LANGUAGECHANGEBTN.addEventListener("click", function(){
+    switch(localStorage.getItem("language")){
+        case "english":
+            localStorage.setItem("language") = "russian";
+            location.reload();
+            break;
+        case "russian":
+            localStorage.setItem("language") = "english";
+            location.reload();
+            break;
+    }
+})
 
 questLine = [
     { 
@@ -92,6 +111,92 @@ questLine = [
     }, 
 ]
 
+questLineRus = [
+    { 
+        name: "Каково ваше нахождение на горизонтальном политическом спектруме",
+        options: [
+            "Консерватизм",
+            "Центризм",
+            "Либерализм"
+        ],
+        ranks: [
+            1,
+            0,
+            -1
+          ]
+    }, 
+
+    { 
+        name: "Что бы вы делали, если бы вас жоско делали в видео игре",
+        options: [
+            "Ливнуть",
+            "Игнорировать",
+            "Расизм"
+        ],
+        ranks: [
+            -1,
+            0,
+            1
+          ]
+    }, 
+
+    { 
+        name: "Вы прям как Раян Гослинг?",
+        options: [
+            "Да",
+            "Нет",
+            "Что?"
+        ],
+        ranks: [
+            1,
+            -1,
+            0
+          ]
+    }, 
+
+    { 
+        name: "Мед. маски обязательны для предотвращения распространения covid-19",
+        options: [
+            "Yes",
+            "No",
+            "I live under a rock sorry"
+        ],
+        ranks: [
+            -1,
+            1,
+            0
+          ]
+    }, 
+
+    { 
+        name: "Фембои - круто?",
+        options: [
+            "Да",
+            "Нет",
+            "Говно полное"
+        ],
+        ranks: [
+            -1,
+            0,
+            1
+          ]
+    }, 
+
+    { 
+        name: "Мнение насчёт Японии",
+        options: [
+            "Лучшая страна в мире",
+            "Пофиг",
+            "Просто страна"
+        ],
+        ranks: [
+            0,
+            1,
+            -1
+          ]
+    }, 
+]
+
 function renderQuestions(obj){
     NAME.innerHTML = obj.name;
     BUT1.innerHTML = obj.options[0];
@@ -133,15 +238,69 @@ function gameEndRender(){
     })
 }
 
+function gameEndRenderRus(){
+    let finalNaming;
+
+    switch(true){
+        case finalRank >= questLine.length / 3 * 2:
+            finalNaming = "Вы думаете, что вы - смегма.<br>Это плохо"
+            break;
+        case finalRank >= questLine.length / 3 && finalRank <= questLine.length / 3 * 2:
+            finalNaming = "У вас нет своего мнения.<br>Мб ты 'взаимствовывуешь' их у ютуберов"
+            break;
+        case finalRank <= questLine.length / 3:
+             finalNaming = "Ты диванный воин Твиттера<br>Как настоящий воин, ты годишься как бесплатная еда"
+             break;
+
+    }
+    NAME.innerHTML = `Готово!<br>Вот что алгоритм о вас думает<br><br>${finalNaming}`;
+
+    BUT1.innerHTML = "Попробуйте еще раз";
+    BUT2.innerHTML = "Попробуйте еще раз";
+    BUT3.innerHTML = "Попробуйте еще раз";
+
+    BUT1.addEventListener("click", function(){
+        location.reload();
+    })
+
+    BUT2.addEventListener("click", function(){
+        location.reload();
+    })
+
+    BUT3.addEventListener("click", function(){
+        location.reload();
+    })
+}
+
 
 //main loop
 function gameLoop(){
     if (questLine.length <= i){
-        gameEndRender();
+        switch(localStorage.getItem("language")){
+            case "english":
+                gameEndRender();
+                break;
+            case "russian":
+                gameEndRenderRus();
+                break;
+            default:
+                console.error("No local storage instance");
+                break;
+        }
         return;
     }
 
-    renderQuestions(questLine[i]); 
+    switch(localStorage.getItem("language")){
+        case "english":
+            renderQuestions(questLine[i])
+            break;
+        case "russian":
+            renderQuestions(questLineRus[i])
+            break;
+        default:
+            console.error("No local storage instance");
+            break;
+    }
     console.log(i)
     
 }

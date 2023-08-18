@@ -64,3 +64,8 @@ button:hover {
 
     font-size: 75%;
 }
+
+#languageChangeBtn
+{
+    margin-top: 1%;
+}
